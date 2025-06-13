@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_webingo/Screen/ChooseSeats.dart';
-import 'package:test_webingo/Screen/DaysProvider.dart';
-import 'package:test_webingo/widgets/BottomBarSecond.dart';
-import 'package:test_webingo/widgets/CircleIcon.dart';
-import 'package:test_webingo/widgets/widgetcard.dart';
+import 'package:test_webingo/Screen/ChooseSeatsScreen/ChooseSeats.dart';
+import 'package:test_webingo/Screen/HomeScreen/HomeProvider.dart';
+import 'package:test_webingo/BottomBar/BottomBarSecond.dart';
+import 'package:test_webingo/Screen/HomeScreen/widgets/CircleIcon.dart';
+import 'package:test_webingo/Screen/HomeScreen/widgets/widgetcard.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -18,7 +18,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final daysProvider = Provider.of<DaysProvider>(context);
+    final daysProvider = Provider.of<HomeProvider>(context);
 
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_webingo/widgets/CardItem.dart';
-import 'package:test_webingo/widgets/ItemProvider.dart';
-import 'package:test_webingo/widgets/SearchBarGlass.dart';
+import 'package:test_webingo/Screen/DiscoverScreen/widgets/CardItem.dart';
+import 'package:test_webingo/Screen/DiscoverScreen/ItemProvider.dart';
+import 'package:test_webingo/Screen/DiscoverScreen/widgets/SearchBarGlass.dart';
 
 class Discover extends StatelessWidget {
   const Discover({super.key});

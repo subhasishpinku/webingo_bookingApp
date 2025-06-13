@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class DaysProvider with ChangeNotifier {
+class HomeProvider with ChangeNotifier {
   final List<Map<String, dynamic>> _days = [
     {"day": "Sun", "date": 22},
     {"day": "Mon", "date": 23},

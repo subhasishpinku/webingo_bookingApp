@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_webingo/Screen/seat_provider.dart';
+import 'package:test_webingo/Screen/ChooseSeatsScreen/seat_provider.dart';
 
 class ChooseSeats extends StatefulWidget {
   const ChooseSeats({super.key});

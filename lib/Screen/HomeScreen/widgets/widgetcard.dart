@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_webingo/widgets/AvatarRow.dart';
+import 'package:test_webingo/Screen/HomeScreen/widgets/AvatarRow.dart';
 
 class widgetcard extends StatelessWidget {
   const widgetcard({

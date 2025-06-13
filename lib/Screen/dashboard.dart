@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:test_webingo/Screen/chart_screen.dart';
-import 'package:test_webingo/Screen/grid1_screen.dart';
-import 'package:test_webingo/Screen/home.dart';
-import 'package:test_webingo/Screen/profile.dart';
-import 'package:test_webingo/widgets/BottomBar.dart';
+import 'package:test_webingo/Screen/ChartScreen/chart_screen.dart';
+import 'package:test_webingo/Screen/Grid1Screen/grid1_screen.dart';
+import 'package:test_webingo/Screen/HomeScreen/home.dart';
+import 'package:test_webingo/Screen/ProfileScreen/profile.dart';
+import 'package:test_webingo/BottomBar/BottomBar.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});

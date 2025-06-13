@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:test_webingo/Screen/Booking.dart';
-import 'package:test_webingo/Screen/Discover.dart';
-import 'package:test_webingo/Screen/Favorites.dart';
-import 'package:test_webingo/Screen/Message.dart';
+import 'package:test_webingo/Screen/Booking/Booking.dart';
+import 'package:test_webingo/Screen/DiscoverScreen/Discover.dart';
+import 'package:test_webingo/Screen/FavoritesScreen/Favorites.dart';
+import 'package:test_webingo/Screen/MessageScreen/Message.dart';
 
 class BottomBarSecond extends StatefulWidget {
   const BottomBarSecond({super.key});

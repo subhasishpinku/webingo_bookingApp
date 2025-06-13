@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_webingo/Screen/DaysProvider.dart';
+import 'package:test_webingo/Screen/HomeScreen/HomeProvider.dart';
 import 'package:test_webingo/Screen/dashboard.dart';
-import 'package:test_webingo/Screen/seat_provider.dart';
-import 'package:test_webingo/widgets/ItemProvider.dart';
+import 'package:test_webingo/Screen/ChooseSeatsScreen/seat_provider.dart';
+import 'package:test_webingo/Screen/DiscoverScreen/ItemProvider.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => DaysProvider()),
+        ChangeNotifierProvider(create: (_) => HomeProvider()),
         ChangeNotifierProvider(create: (_) => ItemProvider()),
         ChangeNotifierProvider(create: (_) => SeatProvider()),
       ],
