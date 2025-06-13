@@ -3,8 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:test_webingo/Screen/ChooseSeatsScreen/ChooseSeats.dart';
 import 'package:test_webingo/Screen/HomeScreen/HomeProvider.dart';
 import 'package:test_webingo/BottomBar/BottomBarSecond.dart';
+import 'package:test_webingo/Screen/HomeScreen/model/Plan.dart';
 import 'package:test_webingo/Screen/HomeScreen/widgets/CircleIcon.dart';
+import 'package:test_webingo/Screen/HomeScreen/widgets/EditPlanDialog.dart';
 import 'package:test_webingo/Screen/HomeScreen/widgets/widgetcard.dart';
+import 'package:test_webingo/style/app_colors.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -15,12 +18,21 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int selectedIndex = 3;
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<HomeProvider>(
+      context,
+      listen: false,
+    ).fetchPlans("2025-11-25"); // use dynamic date if needed
+  }
 
   @override
   Widget build(BuildContext context) {
-    final daysProvider = Provider.of<HomeProvider>(context);
+    final homeProvider = Provider.of<HomeProvider>(context);
 
     double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -36,11 +48,11 @@ class _HomeState extends State<Home> {
                   height: 100,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: daysProvider.days.length,
+                    itemCount: homeProvider.days.length,
                     itemBuilder: (context, index) {
-                      final isSelected = daysProvider.selectedIndex == index;
+                      final isSelected = homeProvider.selectedIndex == index;
                       return GestureDetector(
-                        onTap: () => daysProvider.selectDay(index),
+                        onTap: () => homeProvider.selectDay(index),
                         child: Container(
                           width: 60,
                           margin: const EdgeInsets.symmetric(horizontal: 6),
@@ -69,7 +81,7 @@ class _HomeState extends State<Home> {
                               ),
                               const SizedBox(height: 6),
                               Text(
-                                daysProvider.days[index]["day"],
+                                homeProvider.days[index]["day"],
                                 style: TextStyle(
                                   color: isSelected
                                       ? Colors.white
@@ -78,7 +90,7 @@ class _HomeState extends State<Home> {
                               ),
                               const SizedBox(height: 4),
                               Text(
-                                daysProvider.days[index]["date"].toString(),
+                                homeProvider.days[index]["date"].toString(),
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: isSelected
@@ -107,6 +119,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
+
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
               child: Row(
@@ -146,7 +159,7 @@ class _HomeState extends State<Home> {
                                   color: Colors.white.withOpacity(0.4),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                child: const Text("Medium"),
+                                child: Text("Medium"),
                               ),
                             ),
                             const SizedBox(height: 10),
@@ -287,7 +300,99 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
-            SizedBox(height: 10),
+            Consumer<HomeProvider>(
+              builder: (context, homeProvider, child) {
+                if (homeProvider.isLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                if (homeProvider.plans.isEmpty) {
+                  return const Center(child: Text("No plans available"));
+                }
+
+                return GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: const EdgeInsets.all(20),
+                  itemCount: homeProvider.plans.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, // 2 columns
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                    childAspectRatio: 0.75, // Adjust for height/width ratio
+                  ),
+                  itemBuilder: (context, index) {
+                    final plan = homeProvider.plans[index];
+                    return GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => EditPlanDialog(plan: plan),
+                        );
+                      },
+
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.getPlanColor(plan.level),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Level tag
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 4,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(0.4),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Text(plan.level),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                plan.title,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              Text(
+                                "${plan.date}\n${plan.time}\nRoom: ${plan.room}",
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                              const Spacer(),
+                              Row(
+                                children: [
+                                  const CircleAvatar(
+                                    radius: 16,
+                                    backgroundImage: AssetImage(
+                                      'assets/profile.jpg',
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Expanded(
+                                    child: Text(
+                                      "Trainer\n${plan.trainer}",
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
           ],
         ),
       ),
